@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Price Checker</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Crypto Price Checker</h1>
+
+        <!-- Search bar at the top -->
+        <form action="/search" method="POST" class="mb-4">
+            <div class="form-group">
+                <input type="text" name="symbol" class="form-control form-control-lg" placeholder="Enter crypto symbol (e.g., BTCUSDT)" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Search</button>
+            </div>
+        </form>
+
+        <!-- Display prices or errors -->
+        <% if (error) { %>
+            <div class="alert alert-danger mt-4"><%= error %></div>
+        <% } %>
+
+        <!-- Display all cryptocurrencies -->
+        <% if (prices) { %>
+            <h3 class="text-center mb-4">All Cryptos by Price</h3>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Symbol</th>
+                            <th scope="col">Price (USD)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% prices.forEach(price => { %>
+                            <tr>
+                                <td><%= price.symbol %></td>
+                                <td><%= parseFloat(price.price).toFixed(2) %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>
